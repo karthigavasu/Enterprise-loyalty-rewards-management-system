@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # Customer Service - Auth
+        - id: customer-service-auth
+          uri: ${CUSTOMER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/auth/**
+
+        # Customer Service - Customers
+        - id: customer-service-customers
+          uri: ${CUSTOMER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/customers/**
+
+        # Customer Service - Staff
+        - id: customer-service-staff
+          uri: ${CUSTOMER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/staff/**
+
+        # Loyalty Points Service
+        - id: loyalty-service
+          uri: ${LOYALTY_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/loyalty/**
+
+        # Rewards Service
+        - id: rewards-service
+          uri: ${REWARDS_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/rewards/**
+
+        # Transaction Service
+        - id: transaction-service
+          uri: ${TRANSACTION_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/transactions/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway

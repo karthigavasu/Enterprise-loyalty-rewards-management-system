@@ -1,0 +1,3 @@
+com\loyalty\gateway\config\CorsConfig.class
+com\loyalty\gateway\ApiGatewayApplication.class
+com\loyalty\gateway\filter\JwtAuthGlobalFilter.class
